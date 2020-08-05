@@ -15,8 +15,14 @@
         $mensaje = 'Hola mundo!!';
         echo '<p> primero: ' . $mensaje . '</p>';// commilla simple reconocimiento literal
         echo "<p> segundo: $mensaje </p>";//comillas dobles reconocimiento de variables
-        dame_datos("tercero");
-        dame_datos("cuarto");
+        dameDatos("tercero");
+        dameDatos("cuarto");
+
+        incrementaVariable();
+        incrementaVariable();
+        incrementaVariable();
+        incrementaVariable();
+
     ?>
 
 </body>
