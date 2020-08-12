@@ -11,9 +11,8 @@
 <?php
     
     //constantes
-    //true significa que se puede llamar tanto 
-    //como PI asi como pi
-    define("PI", 3.14, true);
+    define("PI", 3.14);
+    
 
     
     function pathFile(){
@@ -48,6 +47,7 @@
     }
 
     function calcularAreaDeUnCirculo($radio){
-        return 2*PI*pow($radio, 2);
+        
+        return 2 * PI * pow($radio, 2);
     }
 ?>
