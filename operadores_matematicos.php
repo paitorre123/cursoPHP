@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<p>&nbsp;</p>
-<form name="form1" method="post" action="calculadora.php">
+
+<form name="form1" method="post" action="">
   <p>
     <label for="num1"></label>
     <input type="text" name="num1" id="num1">
@@ -27,7 +27,19 @@
     <input type="submit" name="button" id="button" value="Enviar" onClick="prueba">
   </p>
 </form>
-<p>&nbsp;</p>
+
+
+
+<?php
+  if(isset($_POST["button"])){
+    $primerValor = $_POST["num1"];
+    $segundoValor = $_POST["num2"];
+    $operacion = $_POST["operacion"];
+    echo "<p> $primerValor </p>";
+    echo "<p> $segundoValor </p>";
+    echo "<p> $operacion </p>";
+  }
+?>
     
 </body>
 </html>

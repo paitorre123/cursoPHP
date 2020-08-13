@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Sucursales</title>
+</head>
+<body>
+    <input type="button" value="Ver sucursales" id="send_sucursales"/>
+    <input type="button" value="Ver trabajadores" id="send_trabajadores"/>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $('#send_sucursales').click( function() {
+    alert('Enviando!');
+        $.ajax(
+                {
+                    url: 'sucursales.php',
+                    type: 'post',
+                    data:  "post_sucursales",
+                    cache: false,
+                    success: function( result ) {
+                        if(result){
+                            resultObj = eval (result);
+                            alert( 'El servidor retorno "' + resultObj + '"' );
+                        }else{
+                            alert("Error");
+                        }
+                    }
+                }
+            )
+        }
+    );
+    $('#send_trabajadores').click( function() {
+    alert('Enviando!');
+        $.ajax(
+                {
+                    url: 'sucursales.php',
+                    type: 'post',
+                    data:  {"post_trabajadores_sucursal": "sucursal 4"},
+                    cache: false,
+                    success: function( result ) {
+                        alert(result);
+                        if(result){
+                            resultObj = eval (result);
+                            alert( 'El servidor retorno "' + resultObj + '"' );
+                        }else{
+                            alert("Error");
+                        }
+                    }
+                }
+            )
+        }
+    );
+</script>
+</html>
