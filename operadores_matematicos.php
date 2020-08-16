@@ -31,14 +31,35 @@
 
 
 <?php
-  if(isset($_POST["button"])){
-    $primerValor = $_POST["num1"];
-    $segundoValor = $_POST["num2"];
-    $operacion = $_POST["operacion"];
-    echo "<p> $primerValor </p>";
-    echo "<p> $segundoValor </p>";
-    echo "<p> $operacion </p>";
-  }
+
+    include ("operaciones_matematicas.php");
+    
+
+    if(isset($_POST["button"])){
+        $operacion = $_POST["operacion"];
+        $operadorMatematico = new OperacionesMatematicos($_POST["num1"],  $_POST["num2"]);
+        if(!strcmp("Suma", $operacion) ){
+            $resultado = $operadorMatematico->suma(); 
+            echo "<p> resultado: $resultado </p>";
+        }
+        if(!strcmp("Resta", $operacion) ){
+          $resultado = $operadorMatematico->resta();
+            echo "<p> resultado: $resultado </p>";
+        }
+        if(!strcmp("Multiplicación", $operacion) ){
+          $resultado = $operadorMatematico->multiplicar();
+            echo "<p> resultado: $resultado </p>";
+        }
+        if(!strcmp("División", $operacion) ){
+          $resultado = $operadorMatematico->dividir();
+            echo "<p> resultado: $resultado </p>";
+        }
+        if(!strcmp("Módulo", $operacion) ){
+          $resultado = $operadorMatematico->modulo();
+            echo "<p> resultado: $resultado </p>";
+        }
+    }
+
 ?>
     
 </body>
