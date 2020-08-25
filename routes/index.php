@@ -7,7 +7,7 @@ use Steampixel\Route;
 include 'Route.php';
 
 // Define a global basepath
-define('BASEPATH','/');
+define('BASEPATH','/cursoPHP/routes');
 
 // If your script lives in a subfolder you can use the following example
 // Do not forget to edit the basepath in .htaccess if you are on apache
@@ -38,8 +38,8 @@ function navi() {
 
 // Add base route (startpage)
 Route::add('/cursoPHP/routes', function() {
-  navi();
-  //echo '<p> Welcome :-) </p>';
+  //navi();
+  echo '<p> Welcome :-) </p>';
 });
 
 // Another base route example

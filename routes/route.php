@@ -84,7 +84,7 @@ class Route {
       // Add 'find string end' automatically
       $route['expression'] = $route['expression'].'$';
 
-      echo $route['expression'].'<br/>';
+      //echo $route['expression'].'<br/>';
 
       // Check path match
       if (preg_match('#'.$route['expression'].'#'.($case_matters ? '' : 'i'), $path, $matches)) {
