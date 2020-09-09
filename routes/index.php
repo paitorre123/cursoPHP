@@ -6,8 +6,9 @@ use Steampixel\Route;
 // Include router class
 include 'Route.php';
 
+
 // Define a global basepath
-define('BASEPATH','/cursoPHP/routes');
+define('BASEPATH','/');
 
 // If your script lives in a subfolder you can use the following example
 // Do not forget to edit the basepath in .htaccess if you are on apache
@@ -36,15 +37,18 @@ function navi() {
   ';
 }
 
+
+
 // Add base route (startpage)
 Route::add('/cursoPHP/routes', function() {
   //navi();
-  echo '<p> Welcome :-) </p>';
+ 
+  echo "<p> Welcome :-) </p>";
 });
 
 // Another base route example
 Route::add('/cursoPHP/routes/index.php', function() {
-  navi();
+ // navi();
   echo 'You are not really on index.php ;-)';
 });
 
@@ -138,7 +142,7 @@ Route::pathNotFound(function($path) {
   // The router will not send any headers by default
   // So you will have the full flexibility to handle this case
   header('HTTP/1.0 404 Not Found');
-  navi();
+  //navi();
   echo 'Error 404 :-(<br>';
   echo 'The requested path "'.$path.'" was not found!';
 });
@@ -150,7 +154,7 @@ Route::methodNotAllowed(function($path, $method) {
   // So you will have the full flexibility to handle this case
   header('HTTP/1.0 405 Method Not Allowed');
   navi();
-  echo 'Error 405 :-(<br>';
+  echo 'Error 405 :-( <br>';
   echo 'The requested path "'.$path.'" exists. But the request method "'.$method.'" is not allowed on this path!';
 });
 
