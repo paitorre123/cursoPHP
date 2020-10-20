@@ -6,9 +6,8 @@ use Steampixel\Route;
 // Include router class
 include 'Route.php';
 
-
 // Define a global basepath
-define('BASEPATH','/');
+define('BASEPATH','/cursoPHP/routes/');
 
 // If your script lives in a subfolder you can use the following example
 // Do not forget to edit the basepath in .htaccess if you are on apache
@@ -26,6 +25,7 @@ function navi() {
       <li><a href="'.BASEPATH.'contact-form">contact form</a></li>
       <li><a href="'.BASEPATH.'get-post-sample">get+post example</a></li>
       <li><a href="'.BASEPATH.'test.html">test.html</a></li>
+      <li><a href="'.BASEPATH.'blog/how-to-use-include-example">How to push data to included files</a></li>
       <li><a href="'.BASEPATH.'phpinfo">PHP Info</a></li>
       <li><a href="'.BASEPATH.'aTrailingSlashDoesNotMatter">aTrailingSlashDoesNotMatter</a></li>
       <li><a href="'.BASEPATH.'aTrailingSlashDoesNotMatter/">aTrailingSlashDoesNotMatter/</a></li>
@@ -37,24 +37,28 @@ function navi() {
   ';
 }
 
-
-
 // Add base route (startpage)
-Route::add('/cursoPHP/routes', function() {
-  //navi();
- 
-  echo "<p> Welcome :-) </p>";
+Route::add('/', function() {
+  navi();
+  echo 'Welcome :-)';
 });
 
 // Another base route example
-Route::add('/cursoPHP/routes/index.php', function() {
- // navi();
+Route::add('/index.php', function() {
+  navi();
   echo 'You are not really on index.php ;-)';
 });
 
 // Simple test route that simulates static html file
 // TODO: Fix this for some web servers
-Route::add('/cursoPHP/routes/test.html', function() {
+Route::add('/blog/([a-z-0-9-]*)', function($slug) {
+  navi();
+  include('include-example.php');
+});
+
+// This example shows how to include files and how to push data to them
+// TODO: Fix this for some web servers
+Route::add('/test.html', function() {
   navi();
   echo 'Hello from test.html';
 });
@@ -62,26 +66,26 @@ Route::add('/cursoPHP/routes/test.html', function() {
 // This route is for debugging only
 // It simply prints out some php infos
 // Do not use this route on production systems!
-Route::add('/cursoPHP/routes/phpinfo', function() {
+Route::add('/phpinfo', function() {
   navi();
   phpinfo();
 });
 
 // Get route example
-Route::add('/cursoPHP/routes/contact-form', function() {
+Route::add('/contact-form', function() {
   navi();
   echo '<form method="post"><input type="text" name="test"><input type="submit" value="send"></form>';
 }, 'get');
 
 // Post route example
-Route::add('/cursoPHP/routes/contact-form', function() {
+Route::add('/contact-form', function() {
   navi();
   echo 'Hey! The form has been sent:<br>';
   print_r($_POST);
 }, 'post');
 
 // Get and Post route example
-Route::add('/cursoPHP/routes/get-post-sample', function() {
+Route::add('/get-post-sample', function() {
   navi();
 	echo 'You can GET this page and also POST this form back to it';
 	echo '<form method="post"><input type="text" name="input"><input type="submit" value="send"></form>';
@@ -95,43 +99,43 @@ Route::add('/cursoPHP/routes/get-post-sample', function() {
 // Be aware that (.*) will match / (slash) too. For example: /user/foo/bar/edit
 // Also users could inject SQL statements or other untrusted data if you use (.*)
 // You should better use a saver expression like /user/([0-9]*)/edit or /user/([A-Za-z]*)/edit
-Route::add('/cursoPHP/routes/user/(.*)/edit', function($id) {
+Route::add('/user/(.*)/edit', function($id) {
   navi();
   echo 'Edit user with id '.$id.'<br>';
 });
 
 // Accept only numbers as parameter. Other characters will result in a 404 error
-Route::add('/cursoPHP/routes/foo/([0-9]*)/bar', function($var1) {
+Route::add('/foo/([0-9]*)/bar', function($var1) {
   navi();
   echo $var1.' is a great number!';
 });
 
 // Crazy route with parameters
-Route::add('/cursoPHP/routes/(.*)/(.*)/(.*)/(.*)', function($var1,$var2,$var3,$var4) {
+Route::add('/(.*)/(.*)/(.*)/(.*)', function($var1,$var2,$var3,$var4) {
   navi();
   echo 'This is the first match: '.$var1.' / '.$var2.' / '.$var3.' / '.$var4.'<br>';
 });
 
 // Long route example
 // By default this route gets never triggered because the route before matches too
-Route::add('/cursoPHP/routes/foo/bar/foo/bar', function() {
+Route::add('/foo/bar/foo/bar', function() {
   echo 'This is the second match (This route should only work in multi match mode) <br>';
 });
 
 // Trailing slash example
-Route::add('/cursoPHP/routes/aTrailingSlashDoesNotMatter', function() {
+Route::add('/aTrailingSlashDoesNotMatter', function() {
   navi();
   echo 'a trailing slash does not matter<br>';
 });
 
 // Case example
-Route::add('/cursoPHP/routes/theCaseDoesNotMatter',function() {
+Route::add('/theCaseDoesNotMatter',function() {
   navi();
   echo 'the case does not matter<br>';
 });
 
 // 405 test
-Route::add('/cursoPHP/routes/this-route-is-defined', function() {
+Route::add('/this-route-is-defined', function() {
   navi();
   echo 'You need to patch this route to see this content';
 }, 'patch');
@@ -142,7 +146,7 @@ Route::pathNotFound(function($path) {
   // The router will not send any headers by default
   // So you will have the full flexibility to handle this case
   header('HTTP/1.0 404 Not Found');
-  //navi();
+  navi();
   echo 'Error 404 :-(<br>';
   echo 'The requested path "'.$path.'" was not found!';
 });
@@ -154,7 +158,7 @@ Route::methodNotAllowed(function($path, $method) {
   // So you will have the full flexibility to handle this case
   header('HTTP/1.0 405 Method Not Allowed');
   navi();
-  echo 'Error 405 :-( <br>';
+  echo 'Error 405 :-(<br>';
   echo 'The requested path "'.$path.'" exists. But the request method "'.$method.'" is not allowed on this path!';
 });
 

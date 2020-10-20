@@ -46,9 +46,10 @@ class Route {
     $parsed_url = parse_url($_SERVER['REQUEST_URI']);
 
     $path = '/';
-
+    echo "----------------1";
     // If there is a path available
     if (isset($parsed_url['path'])) {
+      echo "----------------1.1";
       // If the trailing slash matters
   	  if ($trailing_slash_matters) {
   		  $path = $parsed_url['path'];
@@ -62,7 +63,7 @@ class Route {
         }
   	  }
     }
-
+    echo "----------------2";
     // Get current request method
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -76,6 +77,7 @@ class Route {
 
       // Add basepath to matching string
       if ($basepath != '' && $basepath != '/') {
+        echo "----------------2.1";
         $route['expression'] = '('.$basepath.')'.$route['expression'];
       }
 
@@ -85,11 +87,12 @@ class Route {
       // Add 'find string end' automatically
       $route['expression'] = $route['expression'].'$';
 
-      //echo $route['expression'].'<br/>';
+      echo $route['expression'].'<br/>';
 
       // Check path match
       if (preg_match('#'.$route['expression'].'#'.($case_matters ? '' : 'i'), $path, $matches)) {
         $path_match_found = true;
+        echo "----------------2.2";
 
         // Cast allowed method to array if it's not one already, then run through all methods
         foreach ((array)$route['method'] as $allowedMethod) {
@@ -117,9 +120,10 @@ class Route {
       }
 
     }
-
+    echo "----------------3";
     // No matching route was found
     if (!$route_match_found) {
+      echo "----------------3.1";
       // But a matching path exists
       if ($path_match_found) {
         if (self::$methodNotAllowed) {
