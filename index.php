@@ -27,6 +27,12 @@
 
         //manejo de string
         compararStringMinusculasMayusculas("hola", "hola");
+
+        //conectar con la base de datos
+        include ("database/consultar.php");
+        $c = new Consultar();
+        echo "Desde la base de datos: " . $c->get_datos_usuarios();
+
     ?>
 
 </body>
