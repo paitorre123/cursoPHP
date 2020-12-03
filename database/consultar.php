@@ -9,15 +9,13 @@
         private $conexion_base_datos;
 
         function __construct(){
-            $this->conexion_base_datos = new  MySqlDataBaseConect();
+            $this->conexion_base_datos = new  MySqlDataBaseConnect();
         }
 
 
         function get_datos_usuarios(){
-            $consulta ="select * from datos_usuarios ";
-            $resultado = mysqli_query($this->conexion_base_datos->get_conexion(), $consulta);
-            $filas = mysqli_fetch_row($resultado);
-            return $filas[1];
+            $consulta ="select * from datos_usuarios";
+            return $this->conexion_base_datos->get_consulta($consulta);
 
         }
 

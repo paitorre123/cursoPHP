@@ -10,7 +10,7 @@
 
     <?php
         /* incluye archivo externo */
-        include("utilidades_index.php");
+        include ("utilidades_index.php");
         /* el punto concatema
            la coma separa*/      
         $mensaje = 'Hola mundo!!';
@@ -31,7 +31,7 @@
         //conectar con la base de datos
         include ("database/consultar.php");
         $c = new Consultar();
-        echo "Desde la base de datos: " . $c->get_datos_usuarios();
+        echo "Desde la base de datos se obtiene: " . $c->get_datos_usuarios()[0]["nombre"];
 
     ?>
 
